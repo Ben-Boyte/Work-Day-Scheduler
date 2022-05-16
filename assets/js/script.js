@@ -1,4 +1,3 @@
-var container = $(".container");
 var date = $("#currentDay");
 var currentTime = moment().hour()
 date.text(moment().format('MMMM Do YYYY, h:mm:ss a'));
