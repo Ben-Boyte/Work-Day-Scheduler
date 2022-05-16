@@ -1,3 +1,5 @@
+var container = $(".container");
+var time = ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"]
 var date = $("#currentDay");
 var currentTime = moment().hour()
 date.text(moment().format('MMMM Do YYYY, h:mm:ss a'));
@@ -7,32 +9,40 @@ function scheduler() {
     let timeInteger = parseInt(time[i])
 
         if (timeInteger < currentTime) {
-            var moment = "past"
+            var placeInTime = "past"
         }
        else if (timeInteger > currentTime) {
-            var moment = "future"
+            var placeInTime = "future"
         }
        else if (timeInteger == currentTime) {
-            var moment = "present"
+            var placeInTime = "present"
         }
+        
+        
+    var row = $("<div>");
+            row.attr("class", "row");
+            container.append(row);
+
+    var label = $("<label>");
+            label.attr("class", "col-3 col-sm-1 time-block hour");
+            label.text(time[i]);
+            row.append(label);
+        
+    var textArea = $("<textarea>");
+            textArea.attr("class", "col-7 col-sm-10 description " + placeInTime);
+            textArea.text(localStorage.getItem("Time " + i));
+            row.append(textArea);
+
+    var button = $("<button>");
+            button.attr("class", "col-3 col-sm-1 saveBtn fas fa-save");
+            button.attr("id", "Time " + i);
+            row.append(button);
     }
-    
 }
 
 function store() {
     localStorage.setItem($(this).attr("id"), $(this).prev().val());
-    $(this).prev().transfer({
-        to: $($(this)),
-    })
 }
 
-// $(document).ready(function() {
-//     $(".saveBtn").on(".click", function() {
-//         var text = $(this).siblings(".description").val();
-//         var time = $(this).parent().attr("id");
-//         localStorage.setItem(text, time);
-//     })
-// })
-
 window.onload = scheduler();
-$(".saveBtn").on("click", save)
+$(".saveBtn").on("click", store);
