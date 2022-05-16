@@ -8,6 +8,16 @@ container.append(date);
 function scheduler() {
     for (i = 0; i < time.length; i++) {
     let timeInteger = parseInt(time[i])
+
+        if (timeInteger < currentTime) {
+            var moment = "past"
+        }
+       else if (timeInteger > currentTime) {
+            var moment = "future"
+        }
+       else if (timeInteger == currentTime) {
+            var moment = "present"
+        }
     }
     
     
